@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Angudone</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="description" content="This is Rich Web 2014!" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/screen.css">
+  <script src="js/angular.js"></script>
+  <script src="js/jquery-2.1.1.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/checklist-model.js"></script>
+</head>
+<body ng-app="myApp" ng-strict-di ng-init="firstName='Balaji Seshadri'">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Get 'em Done!</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="starter-template">
+      <h1>Angudone</h1>
+      <div class="lead">
+        <div ng-controller="TodosCtrl">
+        <input type="text" ng-model="firstName" />
+        <br/>
+        <h3>{{firstName}}</h3>
+        </div>
+        <br/>
+      <div ng-controller="checkBoxController" class="column">
+        <label ng-repeat="designation in designations">
+          <input type="checkbox" checklist-model="user.designations" checklist-value="designation"> {{designation}}
+          <br/>
+        </label>
+        <br/>
+        Balaji is {{user.designations}}
+      </div>
+       <br/>
+      </div>
+      <div ng-controller="arrayController as vm">
+        <input type="text" ng-model="searchText"/>
+      <ul>
+        <div ng-repeat="todo in (vm.todos | filter:searchText)">
+          <table cellpadding="50">
+          <tr>
+          <td>
+          <input type="checkbox" ng-click="vm.markDone(todo)" 
+          ng-checked="todo.done"/>
+          </td>
+          <td>
+            <h4>
+            {{todo.text}}
+            </h4>
+          </td>
+          <td>
+            <h4>
+            {{todo.text | reverse:"Ha!"}}
+            </h4>
+          </td>        
+          </tr>
+          </table>
+        </div>
+      </ul>
+      <form novalidate name="someForm">
+        <input type="text" ng-model="vm.item.text" 
+               placeholder = "I want to ..." required/>
+         <button ng-click="vm.addTodo(vm.item)" 
+         ng-disabled="someForm.$invalid">
+         Add
+         </button>      
+      </form>
+      <br/>
+      <h4>
+      {{vm.todos | json}}
+      </h4>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
